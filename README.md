@@ -1,91 +1,61 @@
-# 💬 WhatsApp Chat Intelligence & NLP Dashboard
+# 💬 WhatsApp Chat Analyzer
 
-[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://share.streamlit.io/)
-[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/)
-[![CI Pipeline](https://github.com/Rishu-kumar88/whatsapp-chat-analysis/actions/workflows/ci.yml/badge.svg)](https://github.com/Rishu-kumar88/whatsapp-chat-analysis/actions)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-
-An end-to-end Data Science, NLP, and Behavioral Analytics web application that transforms raw WhatsApp chat exports into interactive dashboards with VADER sentiment scoring, N-gram frequency extraction, user interaction matrices, and activity heatmaps.
+A Python web application built using **Streamlit**, **Pandas**, **Plotly**, and **NLTK / VADER** to parse and analyze exported WhatsApp chat data.
 
 ---
 
-## 🌟 Key Features
+## 📌 Features
 
-- ⚙️ **Universal Multi-Format Parser**: Robust regex fallback engine supporting Android & iOS 12-hour and 24-hour timestamp formats, varied date separators (`.`, `/`, `-`), multi-line messages, and narrow non-breaking space characters (`\u202f`).
-- 🎭 **VADER NLP Sentiment Engine**: Evaluates compound sentiment scores over time, classifies positive/neutral/negative messages, and ranks participant positivity.
-- 📊 **Interactive Plotly Visualizations**: Responsive time-series plots, daily activity trends, and day-of-week vs. hour-of-day heatmaps.
-- 🔤 **N-Gram & Emoji Analytics**: Bigram/trigram extraction and emoji distribution calculations using custom Hinglish & English stopword filters.
-- 🕸️ **User Reply Interaction Matrix**: Analyzes reply pairs between chat participants to map conversation flow.
-- 🔒 **Data Privacy First**: 100% in-memory data processing with zero server or disk storage.
+- **General Statistics**: Total messages, words, media files, links shared, and average words per message.
+- **Activity & Timelines**: Monthly/daily message trends, most active days/hours, and interactive activity heatmaps.
+- **Top Users**: Breakdown of top contributors in group chats.
+- **Word & Emoji Analytics**: Interactive WordCloud, top words (with Hinglish & English stopword filtering), bigrams/trigrams, and emoji distribution graphs.
+- **Sentiment Analysis**: Sentiment classification (positive, neutral, negative) and average mood trends over time using VADER NLP.
+- **Reply Matrix**: Interaction heatmap showing reply frequency between group members.
 
 ---
 
-## 📐 Project Architecture
+## 📂 Project Structure
 
 ```
 whatsapp-chat-analysis/
-├── app.py                   # Streamlit interactive UI entry point
-├── preprocessor.py          # Multi-pattern regex date parser & feature engineering
-├── helper.py                # Statistics, VADER NLP, Plotly graph generators, and sample data
-├── stop_hinglish.txt        # Custom Hinglish & English stopword lexicon
-├── requirements.txt         # Production dependency specifications
-├── tests/                   # Automated Pytest suite
-│   ├── test_preprocessor.py
-│   └── test_helper.py
-└── .github/workflows/       # GitHub Actions CI pipeline
-    └── ci.yml
+├── app.py               # Streamlit web app interface
+├── preprocessor.py      # WhatsApp chat log parser (Android & iOS formats)
+├── helper.py            # Data calculations, sentiment analysis, and chart generation
+├── stop_hinglish.txt    # Custom stopwords list (English & Hinglish)
+├── requirements.txt     # Python dependencies
+└── tests/               # Unit tests
+    ├── test_preprocessor.py
+    └── test_helper.py
 ```
 
 ---
 
-## 🚀 Quick Start & Installation
+## 🚀 How to Run
 
-### Prerequisites
-- Python 3.9+
-- Git
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/Rishu-kumar88/whatsapp-chat-analysis.git
+   cd whatsapp-chat-analysis
+   ```
 
-### 1. Clone the repository
-```bash
-git clone https://github.com/Rishu-kumar88/whatsapp-chat-analysis.git
-cd whatsapp-chat-analysis
-```
+2. **Install requirements**:
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-### 2. Set up virtual environment & install dependencies
-```bash
-python -m venv venv
-# On Windows:
-venv\Scripts\activate
-# On macOS/Linux:
-source venv/bin/activate
+3. **Launch the application**:
+   ```bash
+   streamlit run app.py
+   ```
 
-pip install -r requirements.txt
-```
-
-### 3. Run the Streamlit application
-```bash
-streamlit run app.py
-```
+4. Open `http://localhost:8501` in your browser.
 
 ---
 
-## 🧪 Running Automated Tests
+## 🧪 Testing
 
-Run the full pytest suite to verify parser and analytics integrity:
+Run pytest to test the preprocessor and helper modules:
 ```bash
-pytest -v
+pytest
 ```
-
----
-
-## 💼 CV / Resume Bullet Points
-
-> **WhatsApp Chat Intelligence & NLP Dashboard** | *Python, Streamlit, VADER NLP, Plotly, Pandas, Pytest*
-> - Engineered a universal regex parser handling multi-OS (Android/iOS) and 12h/24h timestamp variations across custom export formats.
-> - Integrated VADER sentiment analysis and N-gram frequency algorithms to extract mood trends and conversation topics over time.
-> - Built interactive Plotly dashboards featuring activity heatmaps, user interaction matrices, and emoji usage metrics.
-> - Implemented unit test coverage with Pytest and continuous integration via GitHub Actions.
-
----
-
-## 📄 License
-Distributed under the MIT License. See `LICENSE` for more details.

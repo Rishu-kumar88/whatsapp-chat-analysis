@@ -9,7 +9,7 @@ import helper
 
 # Page Configuration
 st.set_page_config(
-    page_title="WhatsApp Chat Intelligence & NLP Dashboard",
+    page_title="WhatsApp Chat Analyzer",
     page_icon="💬",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -19,13 +19,13 @@ st.set_page_config(
 st.markdown("""
 <style>
     .main-header {
-        font-size: 2.3rem;
+        font-size: 2.2rem;
         font-weight: 700;
-        color: #1E88E5;
+        color: #25D366;
         margin-bottom: 0.2rem;
     }
     .sub-header {
-        font-size: 1.1rem;
+        font-size: 1.05rem;
         color: #555555;
         margin-bottom: 1.5rem;
     }
@@ -34,11 +34,11 @@ st.markdown("""
         border-radius: 10px;
         padding: 15px;
         box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-        border-left: 4px solid #1E88E5;
+        border-left: 4px solid #25D366;
     }
     .privacy-box {
         background-color: #E8F5E9;
-        border-left: 4px solid #4CAF50;
+        border-left: 4px solid #25D366;
         padding: 10px 15px;
         border-radius: 5px;
         font-size: 0.9rem;
@@ -48,12 +48,12 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # App Header
-st.markdown('<div class="main-header">💬 WhatsApp Chat Intelligence & NLP Analyzer</div>', unsafe_allow_html=True)
-st.markdown('<div class="sub-header">Production-grade Data Science & NLP analytics platform for exported WhatsApp chat logs</div>', unsafe_allow_html=True)
+st.markdown('<div class="main-header">💬 WhatsApp Chat Analyzer</div>', unsafe_allow_html=True)
+st.markdown('<div class="sub-header">An interactive dashboard to explore statistics, word clouds, sentiment, and activity from WhatsApp chat exports.</div>', unsafe_allow_html=True)
 
 st.markdown("""
 <div class="privacy-box">
-    🔒 <b>Data Privacy First:</b> Chat files are processed strictly in-memory. Zero data is recorded or stored on disk or server.
+    🔒 <b>Privacy Note:</b> Your uploaded chat file is processed only in-memory during session analysis.
 </div>
 """, unsafe_allow_html=True)
 
@@ -110,22 +110,21 @@ else:
         st.sidebar.caption(f"📅 Date Range: `{df['date'].min().strftime('%d %b %Y')} - {df['date'].max().strftime('%d %b %Y')}`")
 
         # Tabs Navigation
-        tab_overview, tab_users, tab_words, tab_sentiment, tab_network, tab_resume = st.tabs([
-            "📊 Executive Overview",
+        tab_overview, tab_users, tab_words, tab_sentiment, tab_network = st.tabs([
+            "📊 Overview",
             "👥 User Activity",
             "🔤 Words & Emojis",
             "🎭 Sentiment Analysis",
-            "🕸️ Interactions",
-            "💼 Portfolio & Resume"
+            "🕸️ Interactions"
         ])
 
         # ==========================================
-        # TAB 1: EXECUTIVE OVERVIEW
+        # TAB 1: OVERVIEW
         # ==========================================
         with tab_overview:
             num_messages, words, num_media, num_urls, avg_words = helper.fetch_stats(selected_user, df)
 
-            st.subheader("📌 Key Performance Indicators")
+            st.subheader("📌 General Statistics")
             kpi1, kpi2, kpi3, kpi4, kpi5 = st.columns(5)
             kpi1.metric("Total Messages", f"{num_messages:,}")
             kpi2.metric("Total Words", f"{words:,}")
@@ -340,24 +339,3 @@ else:
                 st.plotly_chart(fig_mat, use_container_width=True)
             else:
                 st.info("Interaction matrix requires multi-user conversation data.")
-
-        # ==========================================
-        # TAB 6: PORTFOLIO & RESUME INSIGHTS
-        # ==========================================
-        with tab_resume:
-            st.subheader("💼 Resume & Portfolio Optimization Guide")
-            st.markdown("""
-            Here is how you can present this project on your **Resume** and during **Data Science Interviews**:
-
-            #### 📄 Bullet Points for Your CV:
-            - **WhatsApp Analytics & NLP Intelligence Platform** | *Python, Streamlit, VADER, NLTK, Plotly, Pandas*
-              - Engineered a universal regex-driven WhatsApp chat parser handling multi-OS (Android/iOS) and 12h/24h timestamp variants.
-              - Implemented VADER sentiment analysis and N-gram frequency algorithms to extract mood trends and conversation topics across time.
-              - Built interactive Plotly dashboards featuring activity heatmaps, user interaction matrices, and emoji distributions.
-              - Ensured data privacy through 100% in-memory data processing with zero server retention.
-
-            #### 🎤 Interview Talking Points:
-            1. **Data Engineering Challenge:** *"Handling varied datetime formats across WhatsApp exports (Android vs iOS, 12h vs 24h, hidden unicode spaces like `\\u202f`) required robust regex fallback pipelines."*
-            2. **NLP Implementation:** *"Used VADER for fast sentiment scoring over conversational text, providing mood trends over months without requiring heavy GPU infrastructure."*
-            3. **User Experience & Performance:** *"Transitioned static Matplotlib plots into responsive Plotly charts, organized into modular Streamlit tabs."*
-            """)
